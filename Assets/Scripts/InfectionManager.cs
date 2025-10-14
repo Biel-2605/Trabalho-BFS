@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class InfectionManager : MonoBehaviour
 {
-    [Header("Países")]
-    public CountryNode[] countries; // Lista de países (cada um é um vértice do grafo)
+    [Header("PaÃ­ses")]
+    public CountryNode[] countries; // Lista de paÃ­ses (cada um Ã© um vÃ©rtice do grafo)
 
-    [Header("Configuração da Infecção")]
-    public int startIndex = 0;      // País inicial da infecção
+    [Header("ConfiguraÃ§Ã£o da InfecÃ§Ã£o")]
+    public int startIndex = 0;      // PaÃ­s inicial da infecÃ§Ã£o
     public float infectionDelay = 1.5f; // Delay entre ondas
 
-    // Matriz de adjacência (1 = vizinho, 0 = não vizinho)
+    // Matriz de adjacÃªncia (1 = vizinho, 0 = nÃ£o vizinho)
     private int[,] adjMatrix = new int[10, 10]
     {
         // BR AR CH BO PE CO VE EQ PA UR
-        { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0 }, // Brasil
-        { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0 }, // Argentina
-        { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0 }, // Chile
-        { 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 }, // Bolívia
-        { 0, 0, 0, 1, 0, 1, 0, 0, 0, 0 }, // Peru
-        { 0, 0, 0, 0, 1, 0, 1, 1, 0, 0 }, // Colômbia
-        { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 }, // Venezuela
-        { 0, 0, 0, 0, 0, 1, 0, 0, 1, 0 }, // Equador
-        { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 }, // Paraguai
-        { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 }, // Uruguai
+        { 0, 1, 0, 1, 1, 1, 1, 0, 1, 1 }, // Brasil
+        { 1, 0, 1, 1, 0, 0, 0, 0, 1, 1 }, // Argentina
+        { 0, 1, 0, 1, 1, 0, 0, 0, 0, 0 }, // Chile
+        { 1, 1, 1, 0, 1, 0, 0, 0, 1, 0 }, // BolÃ­via
+        { 1, 0, 1, 1, 0, 1, 0, 1, 0, 0 }, // Peru
+        { 1, 0, 0, 0, 1, 0, 1, 1, 0, 0 }, // ColÃ´mbia
+        { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0 }, // Venezuela
+        { 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 }, // Equador
+        { 1, 1, 0, 1, 0, 0, 0, 0, 0, 0 }, // Paraguai
+        { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, // Uruguai
     };
+
 
     private bool infectionStarted = false;
 
     void Update()
     {
-        // Pressiona espaço para começar a infecção
+        // Pressiona espaÃ§o para comeÃ§ar a infecÃ§Ã£o
         if (!infectionStarted && Input.GetKeyDown(KeyCode.Space))
         {
             infectionStarted = true;
@@ -39,13 +40,13 @@ public class InfectionManager : MonoBehaviour
         }
     }
 
-    // BFS para infectar países
+    // BFS para infectar paÃ­ses
     IEnumerator BFSInfection()
     {
         Queue<int> queue = new Queue<int>();
         bool[] visited = new bool[countries.Length];
 
-        // Começa no país inicial
+        // ComeÃ§a no paÃ­s inicial
         queue.Enqueue(startIndex);
         visited[startIndex] = true;
         countries[startIndex].Infect();
@@ -63,7 +64,7 @@ public class InfectionManager : MonoBehaviour
                     countries[neighbor].Infect();
                     queue.Enqueue(neighbor);
 
-                    // Delay para simular propagação por onda
+                    // Delay para simular propagaÃ§Ã£o por onda
                     yield return new WaitForSeconds(infectionDelay);
                 }
             }
