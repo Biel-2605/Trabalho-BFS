@@ -25,7 +25,7 @@ public class CountryNode : MonoBehaviour
     {
         if (sr != null)
         {
-            sr.color = infected ? Color.red : Color.white;
+            sr.color = infected ? Color.red : Color.green;
             Debug.Log(countryName + " Foi infectado!");
         }
     }
