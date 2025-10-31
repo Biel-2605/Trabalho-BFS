@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class InfectionManager : MonoBehaviour
 {
-    // ======= CONFIGURAÇÃO NO INSPECTOR =======
-    
     [Header("Países")]
-    public CountryNode[] countries; // Lista de países (nós do grafo). Cada um deve ter o script CountryNode.
+    public CountryNode[] countries; // Lista de países no mapa (definida no Inspector)
 
     [Header("Configuração da Infecção")]
-    public int startIndex = 0; // Índice do país onde a infecção começa (ex: 0 = Brasil)
-    public float infectionDelay = 1.5f; // Tempo entre cada “onda” de infecção (delay entre países)
+    [Tooltip("Índice do país inicial (defina no Inspector antes de dar Play)")]
+    public int startIndex = -1; // Índice do país que começa infectado (-1 = nenhum)
+    public float infectionDelay = 1.5f; // Tempo entre infecções de cada país
 
-    // ======= MATRIZ DE ADJACÊNCIA =======
-    // Representa as conexões entre os países (grafo)
-    // 1 = os países são vizinhos (conectados)
-    // 0 = não são vizinhos
-
+    // Matriz de adjacência (1 = país vizinho, 0 = não vizinho)
     private int[,] adjMatrix = new int[10, 10]
     {
         // BR AR CH BO PE CO VE EQ PA UR
@@ -33,48 +28,47 @@ public class InfectionManager : MonoBehaviour
         { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, // Uruguai
     };
 
-    // Flag para saber se a infecção já começou
-    private bool infectionStarted = false;
+    private bool infectionStarted = false; // Flag para impedir múltiplas execuções
 
     void Update()
     {
-        // Ao apertar espaço, começa a infecção
+        // Quando apertar Espaço, inicia a infecção
         if (!infectionStarted && Input.GetKeyDown(KeyCode.Space))
         {
-            infectionStarted = true;
-            StartCoroutine(BFSInfection()); // Começa a propagação usando BFS
+            // Verifica se o índice inicial é válido
+            if (startIndex < 0 || startIndex >= countries.Length)
+            {
+                return; // Se inválido, não faz nada
+            }
+
+            infectionStarted = true;           // Marca que a infecção começou
+            StartCoroutine(InfectSequentially()); // Inicia a corrotina BFS
         }
     }
 
-    // ======= ALGORITMO DE PROPAGAÇÃO =======
-    // Usa BFS (Busca em Largura) para percorrer os países infectando por onda
-
-    IEnumerator BFSInfection()
+    // Corrotina que infecta os países **país por país** usando BFS
+    IEnumerator InfectSequentially()
     {
-        Queue<int> queue = new Queue<int>(); // Fila para controle de quais países serão infectados
-        bool[] visited = new bool[countries.Length]; // Marca quais países já foram infectados
+        Queue<int> queue = new Queue<int>();         // Fila BFS
+        bool[] visited = new bool[countries.Length]; // Marca países já visitados
 
-        // Começa a infecção no país inicial
-        queue.Enqueue(startIndex);
-        visited[startIndex] = true;
-        countries[startIndex].Infect(); // Chama método de infecção no script do país
+        queue.Enqueue(startIndex);    // Enfileira país inicial
+        visited[startIndex] = true;   // Marca como visitado
 
-        // Enquanto houver países a infectar
         while (queue.Count > 0)
         {
-            int current = queue.Dequeue(); // País atual a analisar
+            int current = queue.Dequeue(); // Retira o país atual da fila
 
-            // Percorre todos os países para verificar vizinhos
+            countries[current].Infect();   // Infecta o país atual
+            yield return new WaitForSeconds(infectionDelay); // Espera para ver a infecção
+
+            // Enfileira vizinhos diretos não visitados
             for (int neighbor = 0; neighbor < countries.Length; neighbor++)
             {
-                // Se for vizinho e ainda não tiver sido infectado
                 if (adjMatrix[current, neighbor] == 1 && !visited[neighbor])
                 {
-                    visited[neighbor] = true; // Marca como infectado
-                    countries[neighbor].Infect(); // Infecta o país
-                    queue.Enqueue(neighbor); // Adiciona à fila para processar seus vizinhos
-
-                    yield return new WaitForSeconds(infectionDelay); // Espera um tempo antes de continuar (simula onda)
+                    visited[neighbor] = true; // Marca vizinho como visitado
+                    queue.Enqueue(neighbor);  // Adiciona vizinho à fila
                 }
             }
         }

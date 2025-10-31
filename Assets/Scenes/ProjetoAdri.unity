@@ -151,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Venezuela
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &247921650
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -256,6 +258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Paraguai
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &417470051
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -361,6 +365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Uruguai
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &491319119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -558,6 +564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Peru
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &868260545
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -730,6 +738,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Colombia
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &991548069
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -850,6 +860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Chile
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1133209375
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -940,6 +952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Bolivia
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1602473035
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1045,6 +1059,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Equador
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1643215705
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1150,6 +1166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Brasil
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1688565364
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1255,6 +1273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countryName: Argentina
   infected: 0
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1937134881
 SpriteRenderer:
   m_ObjectHideFlags: 0
